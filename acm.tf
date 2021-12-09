@@ -6,4 +6,6 @@ module "acm" {
   zone_id     = data.aws_route53_zone.opensearch.id
 
   wait_for_validation = true
+
+  tags = var.tags
 }

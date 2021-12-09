@@ -47,4 +47,6 @@ resource "aws_elasticsearch_domain" "opensearch" {
     enabled    = true
     kms_key_id = var.encrypt_kms_key_id
   }
+
+  tags = var.tags
 }

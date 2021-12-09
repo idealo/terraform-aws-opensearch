@@ -78,3 +78,9 @@ variable "encrypt_kms_key_id" {
   type        = string
   default     = ""
 }
+
+variable "tags" {
+  description = "The tags to apply to all resources."
+  type        = map(string)
+  default     = {}
+}
