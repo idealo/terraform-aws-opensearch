@@ -10,6 +10,11 @@ variable "cluster_version" {
   default     = "1.0"
 }
 
+variable "cluster_zone_name" {
+  description = "The hosted zone name of the OpenSearch cluster."
+  type        = string
+}
+
 variable "master_user_arn" {
   description = "The ARN for the master user of the cluster. If not specified, then it defaults to using the IAM user that is making the request."
   type        = string
