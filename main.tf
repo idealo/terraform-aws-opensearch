@@ -4,14 +4,14 @@ resource "aws_elasticsearch_domain" "opensearch" {
   access_policies       = data.aws_iam_policy_document.access_policy.json
 
   cluster_config {
-    dedicated_master_enabled = true
+    dedicated_master_enabled = var.master_instance_enabled
     dedicated_master_count   = var.master_instance_count
     dedicated_master_type    = var.master_instance_type
 
     instance_count = var.hot_instance_count
     instance_type  = var.hot_instance_type
 
-    warm_enabled = true
+    warm_enabled = var.warm_instance_enabled
     warm_count   = var.warm_instance_count
     warm_type    = var.warm_instance_type
 
