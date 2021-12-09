@@ -5,19 +5,23 @@ resource "aws_elasticsearch_domain" "opensearch" {
 
   cluster_config {
     dedicated_master_enabled = var.master_instance_enabled
-    dedicated_master_count   = var.master_instance_count
-    dedicated_master_type    = var.master_instance_type
+    dedicated_master_count   = var.master_instance_enabled ? var.master_instance_count : null
+    dedicated_master_type    = var.master_instance_enabled ? var.master_instance_type : null
 
     instance_count = var.hot_instance_count
     instance_type  = var.hot_instance_type
 
     warm_enabled = var.warm_instance_enabled
-    warm_count   = var.warm_instance_count
-    warm_type    = var.warm_instance_type
+    warm_count   = var.warm_instance_enabled ? var.warm_instance_count : null
+    warm_type    = var.warm_instance_enabled ? var.warm_instance_type : null
 
     zone_awareness_enabled = (var.availability_zones > 1) ? true : false
-    zone_awareness_config {
-      availability_zone_count = (var.availability_zones > 1) ? var.availability_zones : 2
+
+    dynamic "zone_awareness_config" {
+      for_each = (var.availability_zones > 1) ? [var.availability_zones] : []
+      content {
+        availability_zone_count = zone_awareness_config.value
+      }
     }
   }
 
