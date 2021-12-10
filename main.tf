@@ -54,3 +54,19 @@ resource "aws_elasticsearch_domain" "opensearch" {
 
   tags = var.tags
 }
+
+resource "aws_elasticsearch_domain_saml_options" "opensearch" {
+  domain_name = aws_elasticsearch_domain.opensearch.domain_name
+
+  saml_options {
+    enabled                 = true
+    subject_key             = var.saml_subject_key
+    roles_key               = var.saml_roles_key
+    session_timeout_minutes = var.saml_session_timeout
+
+    idp {
+      entity_id        = var.saml_entity_id
+      metadata_content = sensitive(replace(var.saml_metadata_content, "\ufeff", ""))
+    }
+  }
+}

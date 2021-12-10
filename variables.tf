@@ -91,8 +91,36 @@ variable "encrypt_kms_key_id" {
   default     = ""
 }
 
+variable "saml_subject_key" {
+  description = "Element of the SAML assertion to use for username."
+  type        = string
+  default     = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+}
+
+variable "saml_roles_key" {
+  description = "Element of the SAML assertion to use for backend roles."
+  type        = string
+  default     = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+}
+
+variable "saml_entity_id" {
+  description = "The unique Entity ID of the application in SAML Identity Provider."
+  type        = string
+}
+
+variable "saml_metadata_content" {
+  description = "The metadata of the SAML application in xml format."
+  type        = string
+}
+
+variable "saml_session_timeout" {
+  description = "Duration of a session in minutes after a user logs in. Default is 60. Maximum value is 1,440."
+  type        = number
+  default     = 60
+}
+
 variable "tags" {
-  description = "The tags to apply to all resources."
+  description = "A map of tags to add to all resources."
   type        = map(string)
   default     = {}
 }
