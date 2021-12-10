@@ -1,3 +1,8 @@
+resource "aws_iam_service_linked_role" "es" {
+  count            = var.create_service_role ? 1 : 0
+  aws_service_name = "es.amazonaws.com"
+}
+
 resource "aws_elasticsearch_domain" "opensearch" {
   domain_name           = var.cluster_name
   elasticsearch_version = "OpenSearch_${var.cluster_version}"
@@ -53,6 +58,8 @@ resource "aws_elasticsearch_domain" "opensearch" {
   }
 
   tags = var.tags
+
+  depends_on = [aws_iam_service_linked_role.es]
 }
 
 resource "aws_elasticsearch_domain_saml_options" "opensearch" {

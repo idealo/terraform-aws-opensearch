@@ -15,6 +15,12 @@ variable "cluster_zone_name" {
   type        = string
 }
 
+variable "create_service_role" {
+  description = "Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html"
+  type        = bool
+  default     = true
+}
+
 variable "master_user_arn" {
   description = "The ARN for the master user of the cluster. If not specified, then it defaults to using the IAM user that is making the request."
   type        = string
