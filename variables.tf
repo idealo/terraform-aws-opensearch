@@ -131,6 +131,12 @@ variable "ism_policies" {
   default     = {}
 }
 
+variable "indices" {
+  description = "A map of all indices to create."
+  type        = map(any)
+  default     = {}
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources."
   type        = map(string)
