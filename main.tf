@@ -1,3 +1,15 @@
+module "acm" {
+  source  = "terraform-aws-modules/acm/aws"
+  version = "~> 3.2.0"
+
+  domain_name = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
+  zone_id     = data.aws_route53_zone.opensearch.id
+
+  wait_for_validation = true
+
+  tags = var.tags
+}
+
 resource "aws_iam_service_linked_role" "es" {
   count            = var.create_service_role ? 1 : 0
   aws_service_name = "es.amazonaws.com"
@@ -76,4 +88,13 @@ resource "aws_elasticsearch_domain_saml_options" "opensearch" {
       metadata_content = sensitive(replace(var.saml_metadata_content, "\ufeff", ""))
     }
   }
+}
+
+resource "aws_route53_record" "opensearch" {
+  zone_id = data.aws_route53_zone.opensearch.id
+  name    = var.cluster_name
+  type    = "CNAME"
+  ttl     = "60"
+
+  records = [aws_elasticsearch_domain.opensearch.endpoint]
 }
