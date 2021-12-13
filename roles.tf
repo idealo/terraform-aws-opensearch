@@ -22,6 +22,6 @@ resource "elasticsearch_opendistro_role" "role" {
     }
   }
 
-  depends_on = [aws_route53_record.opensearch]
+  depends_on = [elasticsearch_opendistro_roles_mapping.master_user_arn]
 }
 

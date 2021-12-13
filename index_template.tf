@@ -4,5 +4,5 @@ resource "elasticsearch_index_template" "index_template" {
   name = each.key
   body = jsonencode(each.value)
 
-  depends_on = [aws_route53_record.opensearch]
+  depends_on = [elasticsearch_opendistro_roles_mapping.master_user_arn]
 }

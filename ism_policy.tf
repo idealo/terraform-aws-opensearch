@@ -4,5 +4,5 @@ resource "elasticsearch_opendistro_ism_policy" "ism_policy" {
   policy_id = each.key
   body      = jsonencode({ "policy" = each.value })
 
-  depends_on = [aws_route53_record.opensearch]
+  depends_on = [elasticsearch_opendistro_roles_mapping.master_user_arn]
 }

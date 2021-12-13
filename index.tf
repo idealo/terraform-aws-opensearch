@@ -10,7 +10,6 @@ resource "elasticsearch_index" "index" {
   force_destroy      = true
 
   depends_on = [
-    aws_route53_record.opensearch,
     elasticsearch_index_template.index_template,
     elasticsearch_opendistro_ism_policy.ism_policy,
   ]
