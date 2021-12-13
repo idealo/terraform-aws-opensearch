@@ -1,0 +1,9 @@
+cluster_permissions:
+- indices:admin/create
+- indices:data/write/bulk
+
+index_permissions:
+  index_patterns : ["*"]
+  allowed_actions:
+  - create_index
+  - write

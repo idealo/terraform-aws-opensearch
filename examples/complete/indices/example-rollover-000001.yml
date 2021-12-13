@@ -1,0 +1,5 @@
+number_of_shards: 2
+number_of_replicas: 1
+aliases:
+  example-rollover:
+    is_write_index: true

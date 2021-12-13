@@ -1,0 +1,33 @@
+description: Demonstrate a rollover-warm-delete workflow.
+default_state: hot
+ism_template:
+- priority: 0
+  index_patterns:
+  - example-rollover-0*
+states:
+- name: hot
+  actions:
+  - rollover:
+      min_size: 20gb
+  transitions:
+  - state_name: warm
+    conditions:
+      min_index_age: 3d
+
+- name: warm
+  actions:
+  - warm_migration: {}
+    timeout: 24h
+    retry:
+      count: 5
+      backoff: exponential
+      delay: 1h
+  transitions:
+  - state_name: delete
+    conditions:
+      min_index_age: 7d
+
+- name: delete
+  actions:
+  - delete: {}
+  transitions: []

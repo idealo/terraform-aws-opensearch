@@ -1,0 +1,17 @@
+---
+index_patterns:
+- example-*
+settings:
+  index:
+    number_of_shards: "2"
+    number_of_replicas: "1"
+    refresh_interval: 30s
+mappings:
+  _source:
+    enabled: false
+  properties:
+    created_at:
+      format: EEE MMM dd HH:mm:ss Z YYYY
+      type: date
+    host_name:
+      type: keyword
