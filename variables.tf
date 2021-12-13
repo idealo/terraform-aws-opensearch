@@ -10,7 +10,7 @@ variable "cluster_version" {
   default     = "1.0"
 }
 
-variable "cluster_zone_name" {
+variable "cluster_domain" {
   description = "The hosted zone name of the OpenSearch cluster."
   type        = string
 }
