@@ -2,9 +2,5 @@ formatter: markdown table
 output:
   file: README.md
 sections:
-  show:
-  - requirements
-  - modules
-  - resources
-  - inputs
-  - outputs
+  hide:
+  - providers
