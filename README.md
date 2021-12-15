@@ -2,9 +2,27 @@
 
 Terraform module to provision an OpenSearch cluster with SAML authentication.
 
+## Prerequisites
+
+- A [hosted zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html) to route traffic to your OpenSearch domain
+- An [entityID and metadata XML](https://aws.amazon.com/de/blogs/security/configure-saml-single-sign-on-for-kibana-with-ad-fs-on-amazon-elasticsearch-service/) from your SAML identity provider
+
+## Features
+
+- Create an AWS OpenSearch cluster with SAML authentication
+- All node types with local NVMe for high IO performance are supported
+- Create or manage various OpenSearch resources:
+  - [Index templates](https://opensearch.org/docs/latest/opensearch/index-templates/)
+  - [Indices](https://opensearch.org/docs/latest/opensearch/rest-api/index-apis/create-index/)
+  - [ISM policies](https://opensearch.org/docs/latest/im-plugin/ism/policies/)
+  - [Roles](https://opensearch.org/docs/latest/security-plugin/access-control/users-roles/#create-roles)
+  - [Role mappings](https://opensearch.org/docs/latest/security-plugin/access-control/users-roles/#map-users-to-roles)
+
 ## Usage
 
-```
+This example is using Azure AD as SAML identity provider.
+
+```terraform
 locals {
   cluster_name      = "opensearch"
   cluster_domain    = "example.com"
@@ -34,8 +52,21 @@ module "opensearch" {
 
   saml_entity_id        = local.saml_entity_id
   saml_metadata_content = data.http.saml_metadata.body
+
+  indices = {
+    example-index = {
+      number_of_shards   = 2
+      number_of_replicas = 1
+    }
+  }
 }
 ```
+
+## Examples
+
+Here is a working example of using this Terraform module:
+
+- [Complete](examples/complete) - Create an AWS OpenSearch cluster with all necessary resources.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -64,6 +95,7 @@ module "opensearch" {
 | [elasticsearch_index_template.index_template](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index_template) | resource |
 | [elasticsearch_opendistro_ism_policy.ism_policy](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opendistro_ism_policy) | resource |
 | [elasticsearch_opendistro_role.role](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opendistro_role) | resource |
+| [elasticsearch_opendistro_roles_mapping.master_user_arn](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opendistro_roles_mapping) | resource |
 | [elasticsearch_opendistro_roles_mapping.role_mapping](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opendistro_roles_mapping) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.access_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -110,3 +142,7 @@ module "opensearch" {
 | <a name="output_cluster_version"></a> [cluster\_version](#output\_cluster\_version) | The version of the OpenSearch cluster. |
 | <a name="output_kibana_endpoint"></a> [kibana\_endpoint](#output\_kibana\_endpoint) | The endpoint URL of Kibana. |
 <!-- END_TF_DOCS -->
+
+## License
+
+Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
