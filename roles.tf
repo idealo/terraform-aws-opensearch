@@ -1,5 +1,5 @@
 resource "elasticsearch_opendistro_role" "role" {
-  for_each = var.roles
+  for_each = local.roles
 
   role_name           = each.key
   description         = try(each.value.description, "")

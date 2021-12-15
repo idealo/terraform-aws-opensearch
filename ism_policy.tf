@@ -1,5 +1,5 @@
 resource "elasticsearch_opendistro_ism_policy" "ism_policy" {
-  for_each = var.ism_policies
+  for_each = local.ism_policies
 
   policy_id = each.key
   body      = jsonencode({ "policy" = each.value })

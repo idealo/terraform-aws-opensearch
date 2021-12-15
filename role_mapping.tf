@@ -1,6 +1,6 @@
 resource "elasticsearch_opendistro_roles_mapping" "role_mapping" {
   for_each = {
-    for key, value in var.role_mappings :
+    for key, value in local.role_mappings :
     key => value if !contains(["all_access", "security_manager"], key)
   }
 
@@ -16,7 +16,7 @@ resource "elasticsearch_opendistro_roles_mapping" "role_mapping" {
 resource "elasticsearch_opendistro_roles_mapping" "master_user_arn" {
   for_each = {
     for key in ["all_access", "security_manager"] :
-    key => try(var.role_mappings[key], {})
+    key => try(local.role_mappings[key], {})
   }
 
   role_name     = each.key

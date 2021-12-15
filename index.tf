@@ -1,5 +1,5 @@
 resource "elasticsearch_index" "index" {
-  for_each = var.indices
+  for_each = local.indices
 
   name               = each.key
   number_of_shards   = try(each.value.number_of_shards, "")

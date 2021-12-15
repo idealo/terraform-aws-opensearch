@@ -37,28 +37,9 @@ module "opensearch" {
   saml_metadata_content = data.http.saml_metadata.body
   saml_session_timeout  = 120
 
-  index_templates = {
-    for filename in fileset(path.module, "index-templates/*.{yml,yaml}") :
-    replace(basename(filename), "/.ya?ml$/", "") => yamldecode(file(filename))
-  }
-
-  ism_policies = {
-    for filename in fileset(path.module, "ism-policies/*.{yml,yaml}") :
-    replace(basename(filename), "/.ya?ml$/", "") => yamldecode(file(filename))
-  }
-
-  indices = {
-    for filename in fileset(path.module, "indices/*.{yml,yaml}") :
-    replace(basename(filename), "/.ya?ml$/", "") => yamldecode(file(filename))
-  }
-
-  roles = {
-    for filename in fileset(path.module, "roles/*.{yml,yaml}") :
-    replace(basename(filename), "/.ya?ml$/", "") => yamldecode(file(filename))
-  }
-
-  role_mappings = {
-    for filename in fileset(path.module, "role-mappings/*.{yml,yaml}") :
-    replace(basename(filename), "/.ya?ml$/", "") => yamldecode(file(filename))
-  }
+  index_files          = fileset(path.module, "indices/*.{yml,yaml}")
+  index_template_files = fileset(path.module, "index-templates/*.{yml,yaml}")
+  ism_policy_files     = fileset(path.module, "ism-policies/*.{yml,yaml}")
+  role_files           = fileset(path.module, "roles/*.{yml,yaml}")
+  role_mapping_files   = fileset(path.module, "role-mappings/*.{yml,yaml}")
 }
