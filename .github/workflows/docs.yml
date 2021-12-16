@@ -1,0 +1,21 @@
+name: Documentation
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Terraform Docs
+      uses: terraform-docs/gh-actions@v0.11.0
+      with:
+        config-file: .terraform-docs.yml
+        git-push: true
