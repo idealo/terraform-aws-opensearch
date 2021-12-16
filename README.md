@@ -66,7 +66,7 @@ module "opensearch" {
 
 Here is a working example of using this Terraform module:
 
-- [Complete](examples/complete) - Create an AWS OpenSearch cluster with all necessary resources.
+- [Complete](https://github.com/idealo/terraform-aws-opensearch/tree/main/examples/complete) - Create an AWS OpenSearch cluster with all necessary resources.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -145,4 +145,4 @@ Here is a working example of using this Terraform module:
 
 ## License
 
-Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
+Apache 2 Licensed. See [LICENSE](https://github.com/idealo/terraform-aws-opensearch/blob/main/LICENSE) for full details.
