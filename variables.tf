@@ -24,7 +24,7 @@ variable "create_service_role" {
 variable "master_user_arn" {
   description = "The ARN for the master user of the cluster. If not specified, then it defaults to using the IAM user that is making the request."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "master_instance_enabled" {

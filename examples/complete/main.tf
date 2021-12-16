@@ -6,21 +6,14 @@ provider "aws" {
   }
 }
 
-locals {
-  cluster_name      = "opensearch"
-  cluster_domain    = "example.com"
-  saml_entity_id    = "https://sts.windows.net/XXX-XXX-XXX-XXX-XXX/"
-  saml_metadata_url = "https://login.microsoftonline.com/XXX-XXX-XXX-XXX-XXX/federationmetadata/2007-06/federationmetadata.xml?appid=YYY-YYY-YYY-YYY-YYY"
-}
-
 data "aws_region" "current" {}
 
 data "http" "saml_metadata" {
-  url = local.saml_metadata_url
+  url = var.saml_metadata_url
 }
 
 provider "elasticsearch" {
-  url                   = "https://${local.cluster_name}.${local.cluster_domain}"
+  url                   = "https://${var.cluster_name}.${var.cluster_domain}"
   aws_region            = data.aws_region.current.name
   elasticsearch_version = "7.10.2"
   healthcheck           = false
@@ -29,11 +22,11 @@ provider "elasticsearch" {
 module "opensearch" {
   source = "../../"
 
-  cluster_name    = local.cluster_name
-  cluster_domain  = local.cluster_domain
+  cluster_name    = var.cluster_name
+  cluster_domain  = var.cluster_domain
   cluster_version = "1.0"
 
-  saml_entity_id        = local.saml_entity_id
+  saml_entity_id        = var.saml_entity_id
   saml_metadata_content = data.http.saml_metadata.body
   saml_session_timeout  = 120
 
