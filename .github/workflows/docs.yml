@@ -1,4 +1,4 @@
-name: Readme
+name: Documentation
 
 on:
   pull_request:
