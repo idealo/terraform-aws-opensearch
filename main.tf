@@ -82,6 +82,7 @@ resource "aws_elasticsearch_domain_saml_options" "opensearch" {
     subject_key             = var.saml_subject_key
     roles_key               = var.saml_roles_key
     session_timeout_minutes = var.saml_session_timeout
+    master_backend_role     = var.saml_master_backend_role
 
     idp {
       entity_id        = var.saml_entity_id
