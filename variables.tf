@@ -125,6 +125,12 @@ variable "saml_session_timeout" {
   default     = 60
 }
 
+variable "saml_master_backend_role" {
+  description = "The ARN for the master user of the cluster. If not specified, then it defaults to using the IAM user that is making the request."
+  type        = string
+  default     = ""
+}
+
 variable "index_templates" {
   description = "A map of all index templates to create."
   type        = map(any)
