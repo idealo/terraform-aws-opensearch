@@ -125,6 +125,19 @@ variable "saml_session_timeout" {
   default     = 60
 }
 
+variable "saml_master_backend_role" {
+  description = "This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards"
+  type        = string
+  default     = ""
+}
+
+variable "saml_master_user_name" {
+  description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards"
+  type        = string
+  default     = ""
+}
+
+
 variable "index_templates" {
   description = "A map of all index templates to create."
   type        = map(any)
