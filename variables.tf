@@ -132,11 +132,10 @@ variable "saml_master_backend_role" {
 }
 
 variable "saml_master_user_name" {
-  description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards"
+  description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards."
   type        = string
-  default     = ""
+  default     = null
 }
-
 
 variable "index_templates" {
   description = "A map of all index templates to create."
