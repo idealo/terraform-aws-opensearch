@@ -39,7 +39,7 @@ variable "master_instance_type" {
   default     = "r6gd.large.elasticsearch"
 
   validation {
-    condition     = can(regex("^[m3|r3|i3|i2|r6gd]", var.master_instance_type))
+    condition     = can(regex("^[t3|m3|r3|i3|i2|r6gd|c6g]", var.master_instance_type))
     error_message = "The EC2 master_instance_type must provide a SSD or NVMe-based local storage."
   }
 }
@@ -56,7 +56,7 @@ variable "hot_instance_type" {
   default     = "r6gd.4xlarge.elasticsearch"
 
   validation {
-    condition     = can(regex("^[m3|r3|i3|i2|r6gd]", var.hot_instance_type))
+    condition     = can(regex("^[t3|m3|r3|i3|i2|r6gd|c6g]", var.hot_instance_type))
     error_message = "The EC2 hot_instance_type must provide a SSD or NVMe-based local storage."
   }
 }
@@ -91,6 +91,30 @@ variable "availability_zones" {
   default     = 3
 }
 
+variable "subnet_ids" {
+  description = "The list of subnet to use"
+  type        = list(any)
+  default     = []
+}
+
+variable "security_group_ids" {
+  description = "The list of security groups to attach"
+  type        = list(any)
+  default     = []
+}
+
+variable "ebs_enabled" {
+  description = "If EBS volumes are enabled"
+  type        = bool
+  default     = false
+}
+
+variable "ebs_volume_size" {
+  description = "Teh size of each EBS volume in GiB"
+  type        = number
+  default     = 10
+}
+
 variable "encrypt_kms_key_id" {
   description = "The KMS key ID to encrypt the OpenSearch cluster with. If not specified, then it defaults to using the AWS OpenSearch Service KMS key."
   type        = string
@@ -112,11 +136,13 @@ variable "saml_roles_key" {
 variable "saml_entity_id" {
   description = "The unique Entity ID of the application in SAML Identity Provider."
   type        = string
+  default     = ""
 }
 
 variable "saml_metadata_content" {
   description = "The metadata of the SAML application in xml format."
   type        = string
+  default     = ""
 }
 
 variable "saml_session_timeout" {
@@ -201,4 +227,21 @@ variable "tags" {
   description = "A map of tags to add to all resources."
   type        = map(string)
   default     = {}
+}
+
+variable "create_acm_cert" {
+  description = "Create the ACM certificate"
+  type        = bool
+  default     = true
+}
+
+variable "config_saml" {
+  description = "Configure SAML for OpenSearch dashboard"
+  type        = bool
+  default     = true
+}
+
+variable "custom_endpoint_certificate_arn" {
+  description = "Custom endpoint ACM certificate"
+  type        = string
 }
