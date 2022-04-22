@@ -126,9 +126,9 @@ variable "saml_session_timeout" {
 }
 
 variable "saml_master_backend_role" {
-  description = "This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards"
+  description = "This backend role receives full permissions to the cluster, equivalent to a new master role, but can only use those permissions within Dashboards."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "saml_master_user_name" {
