@@ -1,4 +1,4 @@
-resource "elasticsearch_opendistro_roles_mapping" "role_mapping" {
+resource "elasticsearch_opensearch_roles_mapping" "role_mapping" {
   for_each = {
     for key, value in local.role_mappings :
     key => value if !contains(["all_access", "security_manager"], key)
@@ -10,10 +10,10 @@ resource "elasticsearch_opendistro_roles_mapping" "role_mapping" {
   hosts         = try(each.value.hosts, [])
   users         = try(each.value.users, [])
 
-  depends_on = [elasticsearch_opendistro_role.role]
+  depends_on = [elasticsearch_opensearch_role.role]
 }
 
-resource "elasticsearch_opendistro_roles_mapping" "master_user_arn" {
+resource "elasticsearch_opensearch_roles_mapping" "master_user_arn" {
   for_each = {
     for key in ["all_access", "security_manager"] :
     key => try(local.role_mappings[key], {})
