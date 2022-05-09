@@ -37,9 +37,8 @@ data "http" "saml_metadata" {
 }
 
 provider "elasticsearch" {
-  url                   = "https://${local.cluster_name}.${local.cluster_domain}"
+  url                   = module.opensearch.cluster_endpoint
   aws_region            = data.aws_region.current.name
-  elasticsearch_version = "7.10.2"
   healthcheck           = false
 }
 
@@ -48,7 +47,7 @@ module "opensearch" {
 
   cluster_name    = local.cluster_name
   cluster_domain  = local.cluster_domain
-  cluster_version = "1.0"
+  cluster_version = "1.2"
 
   saml_entity_id        = local.saml_entity_id
   saml_metadata_content = data.http.saml_metadata.body
@@ -75,7 +74,7 @@ Here is a working example of using this Terraform module:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.65 |
-| <a name="requirement_elasticsearch"></a> [elasticsearch](#requirement\_elasticsearch) | >= 1.6.0 |
+| <a name="requirement_elasticsearch"></a> [elasticsearch](#requirement\_elasticsearch) | >= 2.0.0 |
 
 ## Modules
 
@@ -147,7 +146,7 @@ Here is a working example of using this Terraform module:
 | <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | The endpoint URL of the OpenSearch cluster. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the OpenSearch cluster. |
 | <a name="output_cluster_version"></a> [cluster\_version](#output\_cluster\_version) | The version of the OpenSearch cluster. |
-| <a name="output_kibana_endpoint"></a> [kibana\_endpoint](#output\_kibana\_endpoint) | The endpoint URL of Kibana. |
+| <a name="output_kibana_endpoint"></a> [kibana\_endpoint](#output\_kibana\_endpoint) | The endpoint URL of the OpenSearch dashboards. |
 <!-- END_TF_DOCS -->
 
 ## License
