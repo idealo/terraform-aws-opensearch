@@ -11,7 +11,7 @@ resource "elasticsearch_index" "index" {
 
   depends_on = [
     elasticsearch_index_template.index_template,
-    elasticsearch_opendistro_ism_policy.ism_policy,
+    elasticsearch_opensearch_ism_policy.ism_policy,
   ]
 
   lifecycle {
