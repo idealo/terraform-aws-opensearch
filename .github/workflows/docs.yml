@@ -18,4 +18,5 @@ jobs:
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         config-file: .terraform-docs.yml
+        git-commit-message: "docs(readme): update terraform documentation"
         git-push: true
