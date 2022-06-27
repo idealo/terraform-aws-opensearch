@@ -81,7 +81,7 @@ Here is a working example of using this Terraform module:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 3.4.1 |
+| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.0.1 |
 
 ## Resources
 
