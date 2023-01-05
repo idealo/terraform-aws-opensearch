@@ -13,10 +13,9 @@ data "http" "saml_metadata" {
 }
 
 provider "elasticsearch" {
-  url                   = "https://${var.cluster_name}.${var.cluster_domain}"
-  aws_region            = data.aws_region.current.name
-  elasticsearch_version = "7.10.2"
-  healthcheck           = false
+  url         = module.opensearch.cluster_endpoint
+  aws_region  = data.aws_region.current.name
+  healthcheck = false
 }
 
 module "opensearch" {
@@ -24,7 +23,7 @@ module "opensearch" {
 
   cluster_name    = var.cluster_name
   cluster_domain  = var.cluster_domain
-  cluster_version = "1.0"
+  cluster_version = "1.2"
 
   saml_entity_id        = var.saml_entity_id
   saml_metadata_content = data.http.saml_metadata.body

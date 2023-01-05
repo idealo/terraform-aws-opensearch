@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Terraform Docs
-      uses: terraform-docs/gh-actions@v0.11.0
+      uses: terraform-docs/gh-actions@v1.0.0
       with:
         config-file: .terraform-docs.yml
-        output-file: README.md
+        git-commit-message: "docs(readme): update terraform documentation"
         git-push: true

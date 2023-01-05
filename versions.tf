@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.65"
+      version = ">= 4.12.0"
     }
     elasticsearch = {
       source  = "phillbaker/elasticsearch"
-      version = ">= 1.6.0"
+      version = ">= 2.0.0"
     }
   }
 }

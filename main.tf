@@ -1,7 +1,7 @@
 module "acm" {
   count   = var.create_acm_cert ? 1 : 0
   source  = "terraform-aws-modules/acm/aws"
-  version = "~> 3.2.0"
+  version = "~> 4.0.1"
 
   domain_name = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
   zone_id     = data.aws_route53_zone.opensearch.id
@@ -94,6 +94,8 @@ resource "aws_elasticsearch_domain_saml_options" "opensearch" {
     subject_key             = var.saml_subject_key
     roles_key               = var.saml_roles_key
     session_timeout_minutes = var.saml_session_timeout
+    master_user_name        = var.saml_master_user_name
+    master_backend_role     = var.saml_master_backend_role
 
     idp {
       entity_id        = var.saml_entity_id
