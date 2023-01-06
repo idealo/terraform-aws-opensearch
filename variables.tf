@@ -110,15 +110,33 @@ variable "security_group_ids" {
 }
 
 variable "ebs_enabled" {
-  description = "If EBS volumes are enabled"
+  description = "Indicates whether attach EBS volumes to the data nodes."
   type        = bool
   default     = false
 }
 
 variable "ebs_volume_size" {
-  description = "Teh size of each EBS volume in GiB"
+  description = "The size of EBS volumes attached to data nodes (in GiB)."
   type        = number
   default     = 10
+}
+
+variable "ebs_volume_type" {
+  description = "The type of EBS volumes attached to data nodes."
+  type        = string
+  default     = "gp3"
+}
+
+variable "ebs_throughput" {
+  description = "The throughput (in MiB/s) of the EBS volumes attached to data nodes. Valid values are between 125 and 1000."
+  type        = number
+  default     = 125
+}
+
+variable "ebs_iops" {
+  description = "The baseline input/output (I/O) performance of EBS volumes attached to data nodes."
+  type        = number
+  default     = 3000
 }
 
 variable "encrypt_kms_key_id" {

@@ -83,9 +83,15 @@ resource "aws_elasticsearch_domain" "opensearch" {
     }
   }
 
-  ebs_options {
-    ebs_enabled = var.ebs_enabled
-    volume_size = var.ebs_volume_size
+  dynamic "ebs_options" {
+    for_each = var.ebs_enabled ? [true] : []
+    content {
+      ebs_enabled = true
+      volume_size = var.ebs_volume_size
+      volume_type = var.ebs_volume_type
+      throughput  = var.ebs_throughput
+      iops        = var.ebs_iops
+    }
   }
 
   tags = var.tags
