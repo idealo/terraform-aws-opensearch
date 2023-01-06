@@ -100,7 +100,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
 }
 
 resource "aws_elasticsearch_domain_saml_options" "opensearch" {
-  count       = var.config_saml ? 1 : 0
+  count       = var.saml_enabled ? 1 : 0
   domain_name = aws_elasticsearch_domain.opensearch.domain_name
 
   saml_options {

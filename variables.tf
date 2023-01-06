@@ -145,6 +145,12 @@ variable "encrypt_kms_key_id" {
   default     = ""
 }
 
+variable "saml_enabled" {
+  description = "Indicates whether to configure SAML for the OpenSearch dashboard."
+  type        = bool
+  default     = true
+}
+
 variable "saml_subject_key" {
   description = "Element of the SAML assertion to use for username."
   type        = string
@@ -251,12 +257,6 @@ variable "tags" {
   description = "A map of tags to add to all resources."
   type        = map(string)
   default     = {}
-}
-
-variable "config_saml" {
-  description = "Configure SAML for OpenSearch dashboard"
-  type        = bool
-  default     = true
 }
 
 variable "custom_endpoint_certificate_arn" {
