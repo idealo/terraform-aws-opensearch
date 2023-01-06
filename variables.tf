@@ -91,15 +91,21 @@ variable "availability_zones" {
   default     = 3
 }
 
+variable "vpc_enabled" {
+  description = "Indicates whether the cluster is running inside a VPC."
+  type        = bool
+  default     = false
+}
+
 variable "subnet_ids" {
-  description = "The list of subnet to use"
-  type        = list(any)
+  description = "The list of VPC subnet IDs to use."
+  type        = list(string)
   default     = []
 }
 
 variable "security_group_ids" {
-  description = "The list of security groups to attach"
-  type        = list(any)
+  description = "The list of VPC security groups IDs to attach."
+  type        = list(string)
   default     = []
 }
 

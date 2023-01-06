@@ -75,9 +75,12 @@ resource "aws_elasticsearch_domain" "opensearch" {
     kms_key_id = var.encrypt_kms_key_id
   }
 
-  vpc_options {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = var.security_group_ids
+  dynamic "vpc_options" {
+    for_each = var.vpc_enabled ? [true] : []
+    content {
+      security_group_ids = var.security_group_ids
+      subnet_ids         = var.subnet_ids
+    }
   }
 
   ebs_options {
