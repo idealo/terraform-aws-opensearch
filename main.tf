@@ -1,4 +1,10 @@
+moved {
+  from = module.acm
+  to   = module.acm[0]
+}
+
 module "acm" {
+  count   = (var.custom_endpoint_certificate_arn != "") ? 0 : 1
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0.1"
 
@@ -57,7 +63,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
 
     custom_endpoint_enabled         = true
     custom_endpoint                 = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
-    custom_endpoint_certificate_arn = module.acm.acm_certificate_arn
+    custom_endpoint_certificate_arn = (var.custom_endpoint_certificate_arn != "") ? var.custom_endpoint_certificate_arn : module.acm[0].acm_certificate_arn
   }
 
   node_to_node_encryption {
@@ -69,12 +75,32 @@ resource "aws_elasticsearch_domain" "opensearch" {
     kms_key_id = var.encrypt_kms_key_id
   }
 
+  dynamic "vpc_options" {
+    for_each = var.vpc_enabled ? [true] : []
+    content {
+      security_group_ids = var.security_group_ids
+      subnet_ids         = var.subnet_ids
+    }
+  }
+
+  dynamic "ebs_options" {
+    for_each = var.ebs_enabled ? [true] : []
+    content {
+      ebs_enabled = true
+      volume_size = var.ebs_volume_size
+      volume_type = var.ebs_volume_type
+      throughput  = var.ebs_throughput
+      iops        = var.ebs_iops
+    }
+  }
+
   tags = var.tags
 
   depends_on = [aws_iam_service_linked_role.es]
 }
 
 resource "aws_elasticsearch_domain_saml_options" "opensearch" {
+  count       = var.saml_enabled ? 1 : 0
   domain_name = aws_elasticsearch_domain.opensearch.domain_name
 
   saml_options {
