@@ -229,12 +229,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "create_acm_cert" {
-  description = "Create the ACM certificate"
-  type        = bool
-  default     = true
-}
-
 variable "config_saml" {
   description = "Configure SAML for OpenSearch dashboard"
   type        = bool
@@ -242,6 +236,7 @@ variable "config_saml" {
 }
 
 variable "custom_endpoint_certificate_arn" {
-  description = "Custom endpoint ACM certificate"
+  description = "The ARN of the custom ACM certificate."
   type        = string
+  default     = ""
 }

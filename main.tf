@@ -1,5 +1,10 @@
+moved {
+  from = module.acm
+  to   = module.acm[0]
+}
+
 module "acm" {
-  count   = var.create_acm_cert ? 1 : 0
+  count   = (var.custom_endpoint_certificate_arn != "") ? 0 : 1
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.0.1"
 
@@ -58,7 +63,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
 
     custom_endpoint_enabled         = true
     custom_endpoint                 = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
-    custom_endpoint_certificate_arn = var.create_acm_cert ? module.acm.acm_certificate_arn : var.custom_endpoint_certificate_arn
+    custom_endpoint_certificate_arn = (var.custom_endpoint_certificate_arn != "") ? var.custom_endpoint_certificate_arn : module.acm[0].acm_certificate_arn
   }
 
   node_to_node_encryption {
