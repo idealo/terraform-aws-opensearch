@@ -67,6 +67,7 @@ module "opensearch" {
 Here is a working example of using this Terraform module:
 
 - [Complete](https://github.com/idealo/terraform-aws-opensearch/tree/main/examples/complete) - Create an AWS OpenSearch cluster with all necessary resources.
+- [Minimal](https://github.com/idealo/terraform-aws-opensearch/tree/main/examples/minimal) - Create an empty AWS OpenSearch cluster without saml.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -81,7 +82,7 @@ Here is a working example of using this Terraform module:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.0.1 |
+| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.3.1 |
 
 ## Resources
 
