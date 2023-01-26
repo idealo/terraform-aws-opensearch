@@ -318,3 +318,15 @@ variable "advanced_security_options_master_user_password" {
   type        = string
   default     = null
 }
+
+variable "node_to_node_encryption_enabled" {
+  description = "Configuration block for node-to-node encryption options"
+  type        = bool
+  default     = true
+}
+
+variable "encrypt_at_rest_enabled" {
+  description = "Configuration block for encrypt at rest options"
+  type        = bool
+  default     = true
+}
