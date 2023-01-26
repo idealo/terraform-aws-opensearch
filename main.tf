@@ -53,10 +53,12 @@ resource "aws_elasticsearch_domain" "opensearch" {
     for_each = var.advanced_security_options_enabled ? [true] : []
     content {
       enabled                        = var.advanced_security_options_enabled
-      internal_user_database_enabled = false
+      internal_user_database_enabled = var.advanced_security_options_internal_user_database_enabled
 
       master_user_options {
         master_user_arn = (var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
+        master_user_name     = var.advanced_security_options_master_user_name
+        master_user_password = var.advanced_security_options_master_user_password
       }
     }
   }
