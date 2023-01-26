@@ -300,3 +300,21 @@ variable "access_policies" {
   type        = string
   default     = null
 }
+
+variable "advanced_security_options_internal_user_database_enabled" {
+  description = "Whether to enable or not internal Kibana user database for ELK OpenDistro security plugin"
+  type        = bool
+  default     = false
+}
+
+variable "advanced_security_options_master_user_name" {
+  description = "Master user username (applicable if advanced_security_options_internal_user_database_enabled set to true)"
+  type        = string
+  default     = null
+}
+
+variable "advanced_security_options_master_user_password" {
+  description = "Master user password (applicable if advanced_security_options_internal_user_database_enabled set to true)"
+  type        = string
+  default     = null
+}
