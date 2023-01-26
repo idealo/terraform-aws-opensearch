@@ -73,11 +73,11 @@ resource "aws_elasticsearch_domain" "opensearch" {
   }
 
   node_to_node_encryption {
-    enabled = true
+    enabled = var.node_to_node_encryption_enabled
   }
 
   encrypt_at_rest {
-    enabled    = true
+    enabled    = var.encrypt_at_rest_enabled
     kms_key_id = var.encrypt_kms_key_id
   }
 
