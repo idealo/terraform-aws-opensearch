@@ -15,6 +15,12 @@ variable "cluster_domain" {
   type        = string
 }
 
+variable "cluster_domain_private" {
+  description = "Indicates whether to create records in a private (true) or public (false) zone"
+  type        = bool
+  default     = false
+}
+
 variable "create_service_role" {
   description = "Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html"
   type        = bool
