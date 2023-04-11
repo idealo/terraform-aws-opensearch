@@ -282,3 +282,15 @@ variable "advanced_security_options_enabled" {
   type        = bool
   default     = true
 }
+
+variable "cognito_options_enabled" {
+  description = "Whether Amazon Cognito authentication with Kibana is enabled or not."
+  type        = bool
+  default     = false
+}
+
+variable "cognito_options" {
+  description = "Configuration block for authenticating Kibana with Cognito."
+  type        = map(string)
+  default     = {}
+}

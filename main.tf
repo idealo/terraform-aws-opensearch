@@ -98,6 +98,16 @@ resource "aws_elasticsearch_domain" "opensearch" {
     }
   }
 
+  dynamic "cognito_options" {
+    for_each = var.cognito_options_enabled ? [true] : []
+    content {
+      enabled          = true
+      identity_pool_id = var.cognito_options.identity_pool_id
+      role_arn         = var.cognito_options.role_arn
+      user_pool_id     = var.cognito_options.user_pool_id
+    }
+  }
+
   tags = var.tags
 
   depends_on = [aws_iam_service_linked_role.es]
