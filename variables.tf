@@ -276,3 +276,9 @@ variable "advanced_options" {
   type        = map(string)
   default     = {}
 }
+
+variable "advanced_security_options_enabled" {
+  description = "Whether advanced security is enabled."
+  type        = bool
+  default     = true
+}
