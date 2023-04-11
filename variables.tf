@@ -294,3 +294,9 @@ variable "cognito_options" {
   type        = map(string)
   default     = {}
 }
+
+variable "access_policies" {
+  description = "IAM policy document specifying the access policies for the domain."
+  type        = string
+  default     = null
+}
