@@ -270,3 +270,9 @@ variable "custom_endpoint_certificate_arn" {
   type        = string
   default     = ""
 }
+
+variable "advanced_options" {
+  description = "Key-value string pairs to specify advanced configuration options."
+  type        = map(string)
+  default     = {}
+}

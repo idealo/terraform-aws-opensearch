@@ -25,6 +25,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
   domain_name           = var.cluster_name
   elasticsearch_version = "OpenSearch_${var.cluster_version}"
   access_policies       = data.aws_iam_policy_document.access_policy.json
+  advanced_options      = var.advanced_options
 
   cluster_config {
     dedicated_master_enabled = var.master_instance_enabled
