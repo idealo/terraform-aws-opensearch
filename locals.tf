@@ -1,4 +1,9 @@
 locals {
+  advanced_options_defaults = {
+    "override_main_response_version"         = "true",
+    "rest.action.multi.allow_explicit_index" = "true",
+  }
+
   indices = merge({
     for filename in var.index_files :
     replace(basename(filename), "/\\.(ya?ml|json)$/", "") =>
