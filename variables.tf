@@ -270,3 +270,33 @@ variable "custom_endpoint_certificate_arn" {
   type        = string
   default     = ""
 }
+
+variable "advanced_options" {
+  description = "Key-value string pairs to specify advanced configuration options."
+  type        = map(string)
+  default     = {}
+}
+
+variable "advanced_security_options_enabled" {
+  description = "Whether advanced security is enabled."
+  type        = bool
+  default     = true
+}
+
+variable "cognito_options_enabled" {
+  description = "Whether Amazon Cognito authentication with Kibana is enabled or not."
+  type        = bool
+  default     = false
+}
+
+variable "cognito_options" {
+  description = "Configuration block for authenticating Kibana with Cognito."
+  type        = map(string)
+  default     = {}
+}
+
+variable "access_policies" {
+  description = "IAM policy document specifying the access policies for the domain."
+  type        = string
+  default     = null
+}

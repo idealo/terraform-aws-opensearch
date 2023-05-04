@@ -24,7 +24,8 @@ resource "aws_iam_service_linked_role" "es" {
 resource "aws_elasticsearch_domain" "opensearch" {
   domain_name           = var.cluster_name
   elasticsearch_version = "OpenSearch_${var.cluster_version}"
-  access_policies       = data.aws_iam_policy_document.access_policy.json
+  access_policies       = var.access_policies != null ? var.access_policies : data.aws_iam_policy_document.access_policy.json
+  advanced_options      = merge(local.advanced_options_defaults, var.advanced_options)
 
   cluster_config {
     dedicated_master_enabled = var.master_instance_enabled
@@ -48,12 +49,15 @@ resource "aws_elasticsearch_domain" "opensearch" {
     }
   }
 
-  advanced_security_options {
-    enabled                        = true
-    internal_user_database_enabled = false
+  dynamic "advanced_security_options" {
+    for_each = var.advanced_security_options_enabled ? [true] : []
+    content {
+      enabled                        = var.advanced_security_options_enabled
+      internal_user_database_enabled = false
 
-    master_user_options {
-      master_user_arn = (var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
+      master_user_options {
+        master_user_arn = (var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
+      }
     }
   }
 
@@ -91,6 +95,16 @@ resource "aws_elasticsearch_domain" "opensearch" {
       volume_type = var.ebs_volume_type
       throughput  = var.ebs_throughput
       iops        = var.ebs_iops
+    }
+  }
+
+  dynamic "cognito_options" {
+    for_each = var.cognito_options_enabled ? [true] : []
+    content {
+      enabled          = true
+      identity_pool_id = var.cognito_options.identity_pool_id
+      role_arn         = var.cognito_options.role_arn
+      user_pool_id     = var.cognito_options.user_pool_id
     }
   }
 
