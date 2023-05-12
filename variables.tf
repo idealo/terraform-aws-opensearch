@@ -274,7 +274,7 @@ variable "custom_endpoint_certificate_arn" {
 variable "advanced_options" {
   description = "Key-value string pairs to specify advanced configuration options."
   type        = map(string)
-  default     = {}
+  default     = null
 }
 
 variable "advanced_security_options_enabled" {
