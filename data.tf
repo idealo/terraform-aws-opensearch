@@ -4,7 +4,7 @@ data "aws_caller_identity" "current" {}
 
 data "aws_route53_zone" "opensearch" {
   name = var.cluster_domain
-  
+
   private_zone = var.cluster_domain_private
 }
 
