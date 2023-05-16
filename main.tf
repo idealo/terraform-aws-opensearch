@@ -8,7 +8,7 @@ module "acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.3.1"
 
-  domain_name = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
+  domain_name = local.custom_endpoint
   zone_id     = data.aws_route53_zone.opensearch.id
 
   wait_for_validation = true
@@ -68,7 +68,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
 
     custom_endpoint_enabled         = true
-    custom_endpoint                 = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
+    custom_endpoint                 = local.custom_endpoint
     custom_endpoint_certificate_arn = (var.custom_endpoint_certificate_arn != "") ? var.custom_endpoint_certificate_arn : module.acm[0].acm_certificate_arn
   }
 
@@ -136,7 +136,7 @@ resource "aws_elasticsearch_domain_saml_options" "opensearch" {
 
 resource "aws_route53_record" "opensearch" {
   zone_id = data.aws_route53_zone.opensearch.id
-  name    = var.cluster_name
+  name    = trimsuffix(local.custom_endpoint, var.cluster_domain)
   type    = "CNAME"
   ttl     = "60"
 
