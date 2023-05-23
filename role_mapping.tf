@@ -14,7 +14,7 @@ resource "elasticsearch_opensearch_roles_mapping" "role_mapping" {
 }
 
 resource "elasticsearch_opensearch_roles_mapping" "master_user_arn" {
-  for_each = {
+  for_each = var.master_user_arn == "" ? {} : {
     for key in ["all_access", "security_manager"] :
     key => try(local.role_mappings[key], {})
   }
