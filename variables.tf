@@ -265,6 +265,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "custom_endpoint" {
+  description = "Fully qualified domain for your custom endpoint. If not specified, then it defaults to <cluster_name>.<cluster_domain>"
+  type        = string
+  default     = null
+}
+
 variable "custom_endpoint_certificate_arn" {
   description = "The ARN of the custom ACM certificate."
   type        = string
