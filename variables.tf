@@ -273,6 +273,7 @@ variable "indices" {
     routing_rebalance_enable               = optional(string)
     search_idle_after                      = optional(string)
     search_slowlog_level                   = optional(string)
+    search_slowlog_threshold_fetch_info    = optional(string)
     search_slowlog_threshold_fetch_debug   = optional(string)
     search_slowlog_threshold_fetch_trace   = optional(string)
     search_slowlog_threshold_fetch_warn    = optional(string)
