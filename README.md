@@ -97,6 +97,7 @@ Here is a working example of using this Terraform module:
 | [elasticsearch_opensearch_ism_policy.ism_policy](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy) | resource |
 | [elasticsearch_opensearch_role.role](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_role) | resource |
 | [elasticsearch_opensearch_roles_mapping.master_user_arn](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
+| [elasticsearch_opensearch_roles_mapping.master_user_name](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
 | [elasticsearch_opensearch_roles_mapping.role_mapping](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.access_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -113,6 +114,7 @@ Here is a working example of using this Terraform module:
 | <a name="input_advanced_security_options_internal_user_database_enabled"></a> [advanced\_security\_options\_internal\_user\_database\_enabled](#input\_advanced\_security\_options\_internal\_user\_database\_enabled) | Whether to enable or not internal Kibana user database for ELK OpenDistro security plugin | `bool` | `false` | no |
 | <a name="input_advanced_security_options_master_user_name"></a> [advanced\_security\_options\_master\_user\_name](#input\_advanced\_security\_options\_master\_user\_name) | Master user username (applicable if advanced\_security\_options\_internal\_user\_database\_enabled set to true) | `string` | `null` | no |
 | <a name="input_advanced_security_options_master_user_password"></a> [advanced\_security\_options\_master\_user\_password](#input\_advanced\_security\_options\_master\_user\_password) | Master user password (applicable if advanced\_security\_options\_internal\_user\_database\_enabled set to true) | `string` | `null` | no |
+| <a name="input_auto_tune_enabled"></a> [auto\_tune\_enabled](#input\_auto\_tune\_enabled) | Whether to enable/disable auto-tune | `bool` | `true` | no |
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3. | `number` | `3` | no |
 | <a name="input_cluster_domain"></a> [cluster\_domain](#input\_cluster\_domain) | The hosted zone name of the OpenSearch cluster. | `string` | n/a | yes |
 | <a name="input_cluster_domain_private"></a> [cluster\_domain\_private](#input\_cluster\_domain\_private) | Indicates whether to create records in a private (true) or public (false) zone | `bool` | `false` | no |
