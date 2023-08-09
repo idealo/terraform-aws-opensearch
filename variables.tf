@@ -336,3 +336,14 @@ variable "encrypt_at_rest_enabled" {
   type        = bool
   default     = true
 }
+
+variable "log_streams_enabled" {
+  description = "Configuration for which log streams to enable sending logs to CloudWatch."
+  type = map(string)
+  default = {
+    "INDEX_SLOW_LOGS"     = "false"
+    "SEARCH_SLOW_LOGS"    = "false"
+    "ES_APPLICATION_LOGS" = "false"
+    "AUDIT_LOGS"          = "false"
+  }
+}
