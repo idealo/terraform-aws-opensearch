@@ -10,5 +10,9 @@ terraform {
       source  = "phillbaker/elasticsearch"
       version = ">= 2.0"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = ">= 3.0"
+    }
   }
 }

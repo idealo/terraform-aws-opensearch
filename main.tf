@@ -81,6 +81,10 @@ resource "aws_elasticsearch_domain" "opensearch" {
     kms_key_id = var.encrypt_kms_key_id
   }
 
+  auto_tune_options {
+    desired_state = var.auto_tune_enabled ? "ENABLED" : "DISABLED"
+  }
+
   dynamic "vpc_options" {
     for_each = var.vpc_enabled ? [true] : []
     content {

@@ -337,6 +337,12 @@ variable "encrypt_at_rest_enabled" {
   default     = true
 }
 
+variable "auto_tune_enabled" {
+  description = "Whether to enable/disable auto-tune"
+  type        = bool
+  default     = true
+}
+
 variable "log_streams_enabled" {
   description = "Configuration for which log streams to enable sending logs to CloudWatch."
   type        = map(string)
