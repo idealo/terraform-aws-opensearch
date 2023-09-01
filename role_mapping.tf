@@ -10,7 +10,10 @@ resource "elasticsearch_opensearch_roles_mapping" "role_mapping" {
   hosts         = try(each.value.hosts, [])
   users         = try(each.value.users, [])
 
-  depends_on = [elasticsearch_opensearch_role.role]
+  depends_on = [
+    elasticsearch_opensearch_role.role,
+    aws_route53_record.opensearch
+  ]
 }
 
 resource "elasticsearch_opensearch_roles_mapping" "master_user_arn" {

@@ -12,6 +12,7 @@ resource "elasticsearch_index" "index" {
   depends_on = [
     elasticsearch_index_template.index_template,
     elasticsearch_opensearch_ism_policy.ism_policy,
+    aws_route53_record.opensearch
   ]
 
   lifecycle {

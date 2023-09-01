@@ -22,6 +22,9 @@ resource "elasticsearch_opensearch_role" "role" {
     }
   }
 
-  depends_on = [elasticsearch_opensearch_roles_mapping.master_user_arn]
+  depends_on = [
+    elasticsearch_opensearch_roles_mapping.master_user_arn,
+    aws_route53_record.opensearch
+  ]
 }
 
