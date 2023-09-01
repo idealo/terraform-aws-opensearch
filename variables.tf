@@ -336,3 +336,9 @@ variable "encrypt_at_rest_enabled" {
   type        = bool
   default     = true
 }
+
+variable "auto_tune_enabled" {
+  description = "Whether to enable/disable auto-tune"
+  type        = bool
+  default     = true
+}
