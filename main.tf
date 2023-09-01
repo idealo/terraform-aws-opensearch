@@ -114,21 +114,9 @@ resource "aws_elasticsearch_domain" "opensearch" {
     }
   }
 
-  dynamic "log_publishing_options" {
-    for_each = { for k, v in var.log_streams_enabled : k => v if v == "true" }
-    content {
-      log_type                 = log_publishing_options.key
-      enabled                  = tobool(log_publishing_options.value)
-      cloudwatch_log_group_arn = try(aws_cloudwatch_log_group.opensearch[log_publishing_options.key].arn, "")
-    }
-  }
-
   tags = var.tags
 
-  depends_on = [
-    aws_iam_service_linked_role.es,
-    aws_cloudwatch_log_group.opensearch
-  ]
+  depends_on = [aws_iam_service_linked_role.es]
 }
 
 resource "aws_elasticsearch_domain_saml_options" "opensearch" {
