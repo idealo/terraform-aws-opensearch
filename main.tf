@@ -81,8 +81,23 @@ resource "aws_elasticsearch_domain" "opensearch" {
     kms_key_id = var.encrypt_kms_key_id
   }
 
-  auto_tune_options {
-    desired_state = var.auto_tune_enabled ? "ENABLED" : "DISABLED"
+  dynamic "auto_tune_options" {
+    for_each = var.auto_tune_enabled ? [true] : []
+    content {
+      desired_state = var.auto_tune_enabled ? "ENABLED" : "DISABLED"
+      dynamic "maintenance_schedule" {
+        for_each = var.auto_tune_options["maintenance_schedule"]
+        content {
+          start_at = maintenance_schedule.value["start_at"]
+          duration {
+            unit  = "HOURS" # This is the only valid value
+            value = maintenance_schedule.value["duration"]["value"]
+          }
+          cron_expression_for_recurrence = maintenance_schedule.value["cron_expression_for_recurrence"]
+        }
+      }
+      rollback_on_disable = var.auto_tune_options["rollback_on_disable"]
+    }
   }
 
   dynamic "vpc_options" {
