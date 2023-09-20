@@ -343,6 +343,24 @@ variable "auto_tune_enabled" {
   default     = true
 }
 
+variable "auto_tune_options" {
+  description = "Configuration block for auto-tune options. The maintenance schedule block is required if rollback_on_disable is set to DEFAULT_ROLLBACK. The start_at field must be a time and date in RFC3339 format"
+  type = object({
+    maintenance_schedule = optional(list(object({
+      start_at = string
+      duration = object({
+        value = number
+      })
+      cron_expression_for_recurrence = optional(string)
+    })))
+    rollback_on_disable = string
+  })
+  default = {
+    rollback_on_disable  = "NO_ROLLBACK"
+    maintenance_schedule = []
+  }
+}
+
 variable "log_streams_enabled" {
   description = "Configuration for which log streams to enable sending logs to CloudWatch."
   type        = map(string)
