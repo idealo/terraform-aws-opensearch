@@ -94,6 +94,7 @@ Here is a working example of using this Terraform module:
 | [aws_elasticsearch_domain_saml_options.opensearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticsearch_domain_saml_options) | resource |
 | [aws_iam_service_linked_role.es](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_route53_record.opensearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [elasticsearch_composable_index_template.composable_index_template](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/composable_index_template) | resource |
 | [elasticsearch_index.index](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index) | resource |
 | [elasticsearch_index_template.index_template](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index_template) | resource |
 | [elasticsearch_opensearch_ism_policy.ism_policy](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy) | resource |
@@ -126,6 +127,8 @@ Here is a working example of using this Terraform module:
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | The version of OpenSearch to deploy. | `string` | `"1.0"` | no |
 | <a name="input_cognito_options"></a> [cognito\_options](#input\_cognito\_options) | Configuration block for authenticating Kibana with Cognito. | `map(string)` | `{}` | no |
 | <a name="input_cognito_options_enabled"></a> [cognito\_options\_enabled](#input\_cognito\_options\_enabled) | Whether Amazon Cognito authentication with Kibana is enabled or not. | `bool` | `false` | no |
+| <a name="input_composable_index_template_files"></a> [composable\_index\_template\_files](#input\_composable\_index\_template\_files) | A set of all composable index template files to create. | `set(string)` | `[]` | no |
+| <a name="input_composable_index_templates"></a> [composable\_index\_templates](#input\_composable\_index\_templates) | A map of all composable index templates to create. | `map(any)` | `{}` | no |
 | <a name="input_create_service_role"></a> [create\_service\_role](#input\_create\_service\_role) | Indicates whether to create the service-linked role. See https://docs.aws.amazon.com/opensearch-service/latest/developerguide/slr.html | `bool` | `true` | no |
 | <a name="input_custom_endpoint"></a> [custom\_endpoint](#input\_custom\_endpoint) | Fully qualified domain for your custom endpoint. If not specified, then it defaults to <cluster\_name>.<cluster\_domain> | `string` | `null` | no |
 | <a name="input_custom_endpoint_certificate_arn"></a> [custom\_endpoint\_certificate\_arn](#input\_custom\_endpoint\_certificate\_arn) | The ARN of the custom ACM certificate. | `string` | `""` | no |
