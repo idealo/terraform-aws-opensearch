@@ -1,4 +1,10 @@
 locals {
+  composable_index_templates = merge({
+    for filename in var.composable_index_template_files :
+    replace(basename(filename), "/\\.(ya?ml|json)$/", "") =>
+    length(regexall("\\.ya?ml$", filename)) > 0 ? yamldecode(file(filename)) : jsondecode(file(filename))
+  }, var.composable_index_templates)
+
   indices = merge({
     for filename in var.index_files :
     replace(basename(filename), "/\\.(ya?ml|json)$/", "") =>

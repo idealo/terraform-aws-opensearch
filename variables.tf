@@ -199,6 +199,18 @@ variable "saml_master_user_name" {
   default     = null
 }
 
+variable "composable_index_templates" {
+  description = "A map of all composable index templates to create."
+  type        = map(any)
+  default     = {}
+}
+
+variable "composable_index_template_files" {
+  description = "A set of all composable index template files to create."
+  type        = set(string)
+  default     = []
+}
+
 variable "index_templates" {
   description = "A map of all index templates to create."
   type        = map(any)
