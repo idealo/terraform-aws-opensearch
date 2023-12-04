@@ -6,11 +6,12 @@ moved {
 module "acm" {
   count   = (var.custom_endpoint_certificate_arn != "") ? 0 : 1
   source  = "terraform-aws-modules/acm/aws"
-  version = "~> 4.3.1"
+  version = "~> 5.0.0"
 
   domain_name = local.custom_endpoint
   zone_id     = data.aws_route53_zone.opensearch.id
 
+  validation_method   = "DNS"
   wait_for_validation = true
 
   tags = var.tags
