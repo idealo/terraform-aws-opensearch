@@ -11,6 +11,7 @@ module "acm" {
   domain_name = local.custom_endpoint
   zone_id     = data.aws_route53_zone.opensearch.id
 
+  validation_method   = "DNS"
   wait_for_validation = true
 
   tags = var.tags
