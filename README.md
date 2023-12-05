@@ -36,7 +36,7 @@ data "http" "saml_metadata" {
   url = local.saml_metadata_url
 }
 
-provider "elasticsearch" {
+provider "opensearch" {
   url                   = module.opensearch.cluster_endpoint
   aws_region            = data.aws_region.current.name
   healthcheck           = false
@@ -61,33 +61,31 @@ module "opensearch" {
     example-index-2 = {
       number_of_shards   = 2
       number_of_replicas = 1
-      mappings           =<<-EOF
-      {
-        "properties": {
-          "id": {
-            "type": "text"
+      mappings = {
+        "properties" : {
+          "id" : {
+            "type" : "text"
           },
-          "name": {
-            "type": "text"
+          "name" : {
+            "type" : "text"
           },
-          "containerType": {
-            "type": "text"
+          "containerType" : {
+            "type" : "text"
           },
-          "containerIds": {
-            "type": "text"
+          "containerIds" : {
+            "type" : "text"
           },
-          "synonyms": {
-            "type": "text"
+          "synonyms" : {
+            "type" : "text"
           },
-          "parentEvents": {
-            "type": "text"
+          "parentEvents" : {
+            "type" : "text"
           },
-          "valueType": {
-            "type": "text"
+          "valueType" : {
+            "type" : "text"
           }
         }
       }
-    EOF
     }
   }
 }
@@ -105,7 +103,7 @@ Here is a working example of using this Terraform module:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.12.0 |
 | <a name="requirement_opensearch"></a> [opensearch](#requirement\_opensearch) | >= 2.0.0 |
 
@@ -175,7 +173,7 @@ Here is a working example of using this Terraform module:
 | <a name="input_index_files"></a> [index\_files](#input\_index\_files) | A set of all index files to create. | `set(string)` | `[]` | no |
 | <a name="input_index_template_files"></a> [index\_template\_files](#input\_index\_template\_files) | A set of all index template files to create. | `set(string)` | `[]` | no |
 | <a name="input_index_templates"></a> [index\_templates](#input\_index\_templates) | A map of all index templates to create. | `map(any)` | `{}` | no |
-| <a name="input_indices"></a> [indices](#input\_indices) | A map of all indices to create. | `map(any)` | `{}` | no |
+| <a name="input_indices"></a> [indices](#input\_indices) | A map of all indices to create. | <pre>map(object({<br>    number_of_shards                       = optional(number)<br>    number_of_replicas                     = optional(number)<br>    refresh_interval                       = optional(string)<br>    mappings                               = optional(any, {})<br>    aliases                                = optional(any, {})<br>    analysis_analyzer                      = optional(string)<br>    analysis_char_filter                   = optional(string)<br>    analysis_filter                        = optional(string)<br>    analysis_normalizer                    = optional(string)<br>    analysis_tokenizer                     = optional(string)<br>    analyze_max_token_count                = optional(string)<br>    auto_expand_replicas                   = optional(string)<br>    blocks_metadata                        = optional(bool)<br>    blocks_read                            = optional(bool)<br>    blocks_read_only                       = optional(bool)<br>    blocks_read_only_allow_delete          = optional(bool)<br>    blocks_write                           = optional(bool)<br>    codec                                  = optional(string)<br>    default_pipeline                       = optional(string)<br>    gc_deletes                             = optional(string)<br>    highlight_max_analyzed_offset          = optional(string)<br>    include_type_name                      = optional(string)<br>    index_similarity_default               = optional(string)<br>    indexing_slowlog_level                 = optional(string)<br>    indexing_slowlog_source                = optional(string)<br>    indexing_slowlog_threshold_index_debug = optional(string)<br>    indexing_slowlog_threshold_index_info  = optional(string)<br>    indexing_slowlog_threshold_index_trace = optional(string)<br>    indexing_slowlog_threshold_index_warn  = optional(string)<br>    load_fixed_bitset_filters_eagerly      = optional(bool)<br>    max_docvalue_fields_search             = optional(string)<br>    max_inner_result_window                = optional(string)<br>    max_ngram_diff                         = optional(string)<br>    max_refresh_listeners                  = optional(string)<br>    max_regex_length                       = optional(string)<br>    max_rescore_window                     = optional(string)<br>    max_result_window                      = optional(string)<br>    max_script_fields                      = optional(string)<br>    max_shingle_diff                       = optional(string)<br>    max_terms_count                        = optional(string)<br>    number_of_routing_shards               = optional(string)<br>    rollover_alias                         = optional(string)<br>    routing_allocation_enable              = optional(string)<br>    routing_partition_size                 = optional(string)<br>    routing_rebalance_enable               = optional(string)<br>    search_idle_after                      = optional(string)<br>    search_slowlog_level                   = optional(string)<br>    search_slowlog_threshold_fetch_info    = optional(string)<br>    search_slowlog_threshold_fetch_debug   = optional(string)<br>    search_slowlog_threshold_fetch_trace   = optional(string)<br>    search_slowlog_threshold_fetch_warn    = optional(string)<br>    search_slowlog_threshold_query_debug   = optional(string)<br>    search_slowlog_threshold_query_info    = optional(string)<br>    search_slowlog_threshold_query_trace   = optional(string)<br>    search_slowlog_threshold_query_warn    = optional(string)<br>    shard_check_on_startup                 = optional(string)<br>    sort_field                             = optional(string)<br>    sort_order                             = optional(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_ism_policies"></a> [ism\_policies](#input\_ism\_policies) | A map of all ISM policies to create. | `map(any)` | `{}` | no |
 | <a name="input_ism_policy_files"></a> [ism\_policy\_files](#input\_ism\_policy\_files) | A set of all ISM policy files to create. | `set(string)` | `[]` | no |
 | <a name="input_log_streams_enabled"></a> [log\_streams\_enabled](#input\_log\_streams\_enabled) | Configuration for which log streams to enable sending logs to CloudWatch. | `map(string)` | <pre>{<br>  "AUDIT_LOGS": "false",<br>  "ES_APPLICATION_LOGS": "false",<br>  "INDEX_SLOW_LOGS": "false",<br>  "SEARCH_SLOW_LOGS": "false"<br>}</pre> | no |

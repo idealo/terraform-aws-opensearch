@@ -238,11 +238,11 @@ variable "ism_policy_files" {
 variable "indices" {
   description = "A map of all indices to create."
   type = map(object({
-    number_of_shards                       = number
-    number_of_replicas                     = number
+    number_of_shards                       = optional(number)
+    number_of_replicas                     = optional(number)
     refresh_interval                       = optional(string)
-    mappings                               = optional(string)
-    aliases                                = optional(string)
+    mappings                               = optional(any, {})
+    aliases                                = optional(any, {})
     analysis_analyzer                      = optional(string)
     analysis_char_filter                   = optional(string)
     analysis_filter                        = optional(string)
