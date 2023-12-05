@@ -7,7 +7,7 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "The version of OpenSearch to deploy."
   type        = string
-  default     = "1.0"
+  default     = "2.11"
 }
 
 variable "cluster_domain" {
@@ -197,6 +197,18 @@ variable "saml_master_user_name" {
   description = "This username receives full permissions to the cluster, equivalent to a new master user, but can only use those permissions within Dashboards."
   type        = string
   default     = null
+}
+
+variable "composable_index_templates" {
+  description = "A map of all composable index templates to create."
+  type        = map(any)
+  default     = {}
+}
+
+variable "composable_index_template_files" {
+  description = "A set of all composable index template files to create."
+  type        = set(string)
+  default     = []
 }
 
 variable "index_templates" {
@@ -394,4 +406,39 @@ variable "encrypt_at_rest_enabled" {
   description = "Configuration block for encrypt at rest options"
   type        = bool
   default     = true
+}
+
+variable "auto_tune_enabled" {
+  description = "Whether to enable/disable auto-tune"
+  type        = bool
+  default     = true
+}
+
+variable "auto_tune_options" {
+  description = "Configuration block for auto-tune options. The maintenance schedule block is required if rollback_on_disable is set to DEFAULT_ROLLBACK. The start_at field must be a time and date in RFC3339 format"
+  type = object({
+    maintenance_schedule = optional(list(object({
+      start_at = string
+      duration = object({
+        value = number
+      })
+      cron_expression_for_recurrence = optional(string)
+    })))
+    rollback_on_disable = string
+  })
+  default = {
+    rollback_on_disable  = "NO_ROLLBACK"
+    maintenance_schedule = []
+  }
+}
+
+variable "log_streams_enabled" {
+  description = "Configuration for which log streams to enable sending logs to CloudWatch."
+  type        = map(string)
+  default = {
+    "INDEX_SLOW_LOGS"     = "false"
+    "SEARCH_SLOW_LOGS"    = "false"
+    "ES_APPLICATION_LOGS" = "false"
+    "AUDIT_LOGS"          = "false"
+  }
 }

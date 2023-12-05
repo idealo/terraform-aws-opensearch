@@ -1,5 +1,5 @@
-resource "opensearch_index_template" "index_template" {
-  for_each = local.index_templates
+resource "opensearch_composable_index_template" "composable_index_template" {
+  for_each = local.composable_index_templates
 
   name = each.key
   body = jsonencode(each.value)

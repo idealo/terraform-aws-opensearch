@@ -19,3 +19,20 @@ data "aws_iam_policy_document" "access_policy" {
     }
   }
 }
+
+data "aws_iam_policy_document" "allow_logging" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:PutLogEventsBatch",
+    ]
+
+    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:${local.log_prefix}/*:*"]
+
+    principals {
+      identifiers = ["es.amazonaws.com"]
+      type        = "Service"
+    }
+  }
+}

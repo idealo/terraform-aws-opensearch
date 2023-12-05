@@ -1,4 +1,4 @@
-resource "elasticsearch_opensearch_role" "role" {
+resource "opensearch_role" "role" {
   for_each = local.roles
 
   role_name           = each.key
@@ -22,6 +22,10 @@ resource "elasticsearch_opensearch_role" "role" {
     }
   }
 
-  depends_on = [elasticsearch_opensearch_roles_mapping.master_user_arn]
+  depends_on = [
+    opensearch_roles_mapping.master_user_arn,
+    opensearch_roles_mapping.master_user_name,
+    aws_route53_record.opensearch
+  ]
 }
 

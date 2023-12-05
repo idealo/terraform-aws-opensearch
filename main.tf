@@ -6,11 +6,12 @@ moved {
 module "acm" {
   count   = (var.custom_endpoint_certificate_arn != "") ? 0 : 1
   source  = "terraform-aws-modules/acm/aws"
-  version = "~> 4.3.1"
+  version = "~> 5.0.0"
 
   domain_name = local.custom_endpoint
   zone_id     = data.aws_route53_zone.opensearch.id
 
+  validation_method   = "DNS"
   wait_for_validation = true
 
   tags = var.tags
@@ -81,6 +82,25 @@ resource "aws_elasticsearch_domain" "opensearch" {
     kms_key_id = var.encrypt_kms_key_id
   }
 
+  dynamic "auto_tune_options" {
+    for_each = var.auto_tune_enabled ? [true] : []
+    content {
+      desired_state = var.auto_tune_enabled ? "ENABLED" : "DISABLED"
+      dynamic "maintenance_schedule" {
+        for_each = var.auto_tune_options["maintenance_schedule"]
+        content {
+          start_at = maintenance_schedule.value["start_at"]
+          duration {
+            unit  = "HOURS" # This is the only valid value
+            value = maintenance_schedule.value["duration"]["value"]
+          }
+          cron_expression_for_recurrence = maintenance_schedule.value["cron_expression_for_recurrence"]
+        }
+      }
+      rollback_on_disable = var.auto_tune_options["rollback_on_disable"]
+    }
+  }
+
   dynamic "vpc_options" {
     for_each = var.vpc_enabled ? [true] : []
     content {
@@ -110,9 +130,21 @@ resource "aws_elasticsearch_domain" "opensearch" {
     }
   }
 
+  dynamic "log_publishing_options" {
+    for_each = { for k, v in var.log_streams_enabled : k => v if v == "true" }
+    content {
+      log_type                 = log_publishing_options.key
+      enabled                  = tobool(log_publishing_options.value)
+      cloudwatch_log_group_arn = try(aws_cloudwatch_log_group.opensearch[log_publishing_options.key].arn, "")
+    }
+  }
+
   tags = var.tags
 
-  depends_on = [aws_iam_service_linked_role.es]
+  depends_on = [
+    aws_iam_service_linked_role.es,
+    aws_cloudwatch_log_group.opensearch
+  ]
 }
 
 resource "aws_elasticsearch_domain_saml_options" "opensearch" {
