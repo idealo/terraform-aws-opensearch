@@ -6,6 +6,7 @@ resource "opensearch_ism_policy" "ism_policy" {
 
   depends_on = [
     opensearch_roles_mapping.master_user_arn,
+    opensearch_roles_mapping.master_user_name,
     aws_route53_record.opensearch
   ]
 }

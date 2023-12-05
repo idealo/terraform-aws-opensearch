@@ -11,6 +11,7 @@ resource "opensearch_index" "index" {
 
   depends_on = [
     opensearch_index_template.index_template,
+    opensearch_composable_index_template.composable_index_template,
     opensearch_ism_policy.ism_policy,
     aws_route53_record.opensearch
   ]
