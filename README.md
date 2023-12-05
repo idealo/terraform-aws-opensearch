@@ -44,11 +44,11 @@ provider "opensearch" {
 
 module "opensearch" {
   source  = "idealo/opensearch/aws"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   cluster_name    = local.cluster_name
   cluster_domain  = local.cluster_domain
-  cluster_version = "1.2"
+  cluster_version = "2.11"
 
   saml_entity_id        = local.saml_entity_id
   saml_metadata_content = data.http.saml_metadata.body
