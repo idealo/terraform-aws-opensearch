@@ -7,7 +7,7 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "The version of OpenSearch to deploy."
   type        = string
-  default     = "1.0"
+  default     = "2.11"
 }
 
 variable "cluster_domain" {

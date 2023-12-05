@@ -1,4 +1,4 @@
-resource "elasticsearch_opensearch_roles_mapping" "role_mapping" {
+resource "opensearch_roles_mapping" "role_mapping" {
   for_each = {
     for key, value in local.role_mappings :
     key => value if !contains(["all_access", "security_manager"], key)
@@ -11,12 +11,12 @@ resource "elasticsearch_opensearch_roles_mapping" "role_mapping" {
   users         = try(each.value.users, [])
 
   depends_on = [
-    elasticsearch_opensearch_role.role,
+    opensearch_role.role,
     aws_route53_record.opensearch
   ]
 }
 
-resource "elasticsearch_opensearch_roles_mapping" "master_user_arn" {
+resource "opensearch_roles_mapping" "master_user_arn" {
   for_each = var.advanced_security_options_internal_user_database_enabled ? {} : {
     for key in ["all_access", "security_manager"] :
     key => try(local.role_mappings[key], {})
@@ -31,7 +31,7 @@ resource "elasticsearch_opensearch_roles_mapping" "master_user_arn" {
   depends_on = [aws_route53_record.opensearch]
 }
 
-resource "elasticsearch_opensearch_roles_mapping" "master_user_name" {
+resource "opensearch_roles_mapping" "master_user_name" {
   for_each = var.advanced_security_options_internal_user_database_enabled ? {
     for key in ["all_access", "security_manager"] :
     key => try(local.role_mappings[key], {})

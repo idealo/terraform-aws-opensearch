@@ -76,7 +76,7 @@ Here is a working example of using this Terraform module:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.12.0 |
-| <a name="requirement_elasticsearch"></a> [elasticsearch](#requirement\_elasticsearch) | >= 2.0.0 |
+| <a name="requirement_opensearch"></a> [opensearch](#requirement\_opensearch) | >= 2.0.0 |
 
 ## Modules
 
@@ -94,14 +94,14 @@ Here is a working example of using this Terraform module:
 | [aws_elasticsearch_domain_saml_options.opensearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticsearch_domain_saml_options) | resource |
 | [aws_iam_service_linked_role.es](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_route53_record.opensearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [elasticsearch_composable_index_template.composable_index_template](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/composable_index_template) | resource |
-| [elasticsearch_index.index](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index) | resource |
-| [elasticsearch_index_template.index_template](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/index_template) | resource |
-| [elasticsearch_opensearch_ism_policy.ism_policy](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_ism_policy) | resource |
-| [elasticsearch_opensearch_role.role](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_role) | resource |
-| [elasticsearch_opensearch_roles_mapping.master_user_arn](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
-| [elasticsearch_opensearch_roles_mapping.master_user_name](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
-| [elasticsearch_opensearch_roles_mapping.role_mapping](https://registry.terraform.io/providers/phillbaker/elasticsearch/latest/docs/resources/opensearch_roles_mapping) | resource |
+| [opensearch_composable_index_template.composable_index_template](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/composable_index_template) | resource |
+| [opensearch_index.index](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/index) | resource |
+| [opensearch_index_template.index_template](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/index_template) | resource |
+| [opensearch_ism_policy.ism_policy](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/ism_policy) | resource |
+| [opensearch_role.role](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/role) | resource |
+| [opensearch_roles_mapping.master_user_arn](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/roles_mapping) | resource |
+| [opensearch_roles_mapping.master_user_name](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/roles_mapping) | resource |
+| [opensearch_roles_mapping.role_mapping](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs/resources/roles_mapping) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.access_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.allow_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -124,7 +124,7 @@ Here is a working example of using this Terraform module:
 | <a name="input_cluster_domain"></a> [cluster\_domain](#input\_cluster\_domain) | The hosted zone name of the OpenSearch cluster. | `string` | n/a | yes |
 | <a name="input_cluster_domain_private"></a> [cluster\_domain\_private](#input\_cluster\_domain\_private) | Indicates whether to create records in a private (true) or public (false) zone | `bool` | `false` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the OpenSearch cluster. | `string` | `"opensearch"` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | The version of OpenSearch to deploy. | `string` | `"1.0"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | The version of OpenSearch to deploy. | `string` | `"2.11"` | no |
 | <a name="input_cognito_options"></a> [cognito\_options](#input\_cognito\_options) | Configuration block for authenticating Kibana with Cognito. | `map(string)` | `{}` | no |
 | <a name="input_cognito_options_enabled"></a> [cognito\_options\_enabled](#input\_cognito\_options\_enabled) | Whether Amazon Cognito authentication with Kibana is enabled or not. | `bool` | `false` | no |
 | <a name="input_composable_index_template_files"></a> [composable\_index\_template\_files](#input\_composable\_index\_template\_files) | A set of all composable index template files to create. | `set(string)` | `[]` | no |

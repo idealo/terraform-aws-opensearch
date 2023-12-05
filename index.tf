@@ -1,4 +1,4 @@
-resource "elasticsearch_index" "index" {
+resource "opensearch_index" "index" {
   for_each = local.indices
 
   name               = each.key
@@ -10,9 +10,9 @@ resource "elasticsearch_index" "index" {
   force_destroy      = true
 
   depends_on = [
-    elasticsearch_index_template.index_template,
-    elasticsearch_composable_index_template.composable_index_template,
-    elasticsearch_opensearch_ism_policy.ism_policy,
+    opensearch_index_template.index_template,
+    opensearch_composable_index_template.composable_index_template,
+    opensearch_ism_policy.ism_policy,
     aws_route53_record.opensearch
   ]
 
