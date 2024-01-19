@@ -62,7 +62,7 @@ variable "hot_instance_type" {
   default     = "r6gd.4xlarge.elasticsearch"
 
   validation {
-    condition     = can(regex("^[t3|m3|r3|i3|i2|r6gd|c6g]", var.hot_instance_type))
+    condition     = can(regex("^[t3|m3|r3|i3|i2|r6gd|c6g|or1]", var.hot_instance_type))
     error_message = "The EC2 hot_instance_type must provide a SSD or NVMe-based local storage."
   }
 }
