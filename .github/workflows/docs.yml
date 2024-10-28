@@ -15,7 +15,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Terraform Docs
-      uses: terraform-docs/gh-actions@v1.1.0
+      uses: terraform-docs/gh-actions@v1.2.0
       with:
         config-file: .terraform-docs.yml
         git-commit-message: "docs(readme): update terraform documentation"
